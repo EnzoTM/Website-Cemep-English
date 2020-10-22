@@ -1,0 +1,15 @@
+m = db.execute("SELECT * FROM segundo_medio")
+    j = 0
+    for i in m[0]:
+        j += 1
+        nome = "teacher"  + str(j)
+        senha = "23220410"
+        email = m[0][i] + "@gmail.com"
+        idade = "04/03/2004"
+
+        hash = generate_password_hash(senha)
+
+        db.execute("INSERT INTO professor (idade, email, nome, hash, materia, primeiro, segundo, terceiro) VALUES (:idade, :email, :nome, :hash, :materia, :primeiro, :segundo, :terceiro)",
+        idade=idade, email=email, nome=nome, hash=hash, materia=m[0][i], primeiro=True, segundo=True, terceiro=True)
+        
+    return render_template("criacao.html")

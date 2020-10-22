@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <br><br><br><br>
+    <table width="60%" align="center">
+        <tr>
+            <td>
+                <table class="table border">
+                    <thead class="thead-light">
+                        <tr style="color:white;">
+                            <th scope="col">Role</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Subject</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for i in range(t) %}
+                        <tr>
+                            <td>Teacher</td>
+                            <td>{{ tudo[i]["nome"] }}</td>
+                            <td>{{ tudo[i]["materia"] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

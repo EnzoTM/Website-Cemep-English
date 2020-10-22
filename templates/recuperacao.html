@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    {% if aviso == True %}
+        <div class="alert alert-warning" role="alert">
+            Some grade exceeded the limit
+        </div>
+    {% endif %}
+
+    {% if tudo[0]["closed"] == True and session["user_cargo"] == "Estudante" %}
+        {% if tudo[0]["prova"] >= 6 %}
+            <div class="alert alert-success" role="alert">
+                Recovered
+            </div>   
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+                Did not recover
+            </div>
+        {% endif %}
+    {% endif %}
+    {% if tudo[0]["closed"] == False and session["user_cargo"] != "Estudante" %}
+        <table width="100%">
+            <tr>
+                <form action="/closed" method="post">
+                    <input type="hidden" name="tabela" value="{{ tabela }}">
+                    <input type="hidden" name="materia" value="{{ materia }}">
+                    <input type="hidden" name="bimestre" value="{{ bimestre }}">
+                    <input type="hidden" name="rec" value="True">
+                    <td><input type="submit" value="Close" name="fechar" class="btn btn-outline-dark"></td>
+                </form>
+                <form action="/atualizar" method="post">
+                    <input type="hidden" name="tabela" value="{{ tabela }}">
+                    <input type="hidden" name="bimestre" value="{{ bimestre }}">
+                    <input type="hidden" name="rec" value="True">
+                    <td align="right"><input type="submit" value="Save" name="rec" class="btn btn-outline-dark"></td>
+            </tr>
+        </table>
+    {% endif %}
+        <br><br><br><br>
+        <table align="center" width="35%">
+            <tr>
+                <td>
+                    <table class="table" align="center" width="100%">
+                        <tr></tr>
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Bimester {{ bimestre }}</th>
+                                <th scope="col" style="text-align: center;">Test (10)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in range(l) %}
+                                <tr>
+                                    <th scope="row">{{ tudo[i]["aluno_nome"] }}</th>
+                                    {% if tudo[0]["closed"] == False %}
+                                        {% if session["user_cargo"] != "Estudante" %}
+                                            <td style="text-align: center;"><input type="text" value="{{ tudo[i]['prova'] }}" name="{{ tudo[i]['aluno_nome'] }}_prova"></td>
+                                        {% else %}
+                                            <td style="text-align: center;"><input type="text" value="{{ tudo[i]['prova'] }}" name="{{ tudo[i]['aluno_nome'] }}_prova" disabled></td>
+                                        {% endif %}
+                                    {% else %}
+                                        {% if tudo[i]['prova'] >= 6 %}
+                                            <td style="text-align: center;">{{ tudo[i]['prova'] }}</td>
+                                        {% else %}
+                                            <td style="text-align: center; color: red;">{{ tudo[i]['prova'] }}</td>
+                                        {% endif %}
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}

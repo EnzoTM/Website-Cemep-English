@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <form action="/escolha" method="post">
+        <table height="100%" width="100%">
+            <tr height="100%" width="100%">
+                <td width="8%">
+                    <table class="tabela_materias" width="100%">
+                        <tr>
+                            <td style=" text-align: center;" colspan="2">
+                                <h1 style="font-family:Times New Roman; font-family:Courier New">Subjects</h1>
+                                <hr><br>
+                            </td>
+                        </tr>
+                        {% for i in materias_med[0] %}
+                            <tr>
+                                <td width="15%"></td>
+                                <td><input type="submit" value="{{ materias_med[0][i] }}" name="materia" class="btn btn-link" style="color: white; font-size: 25px"></td>
+                            </tr>
+                        {% endfor %}
+                        {% for i in materias_tec[0] %}
+                            <tr style="font-size: 30px;">
+                                <td width="15%"></td>
+                                <td><input type="submit" value="{{ materias_tec[0][i] }}" name="materia" class="btn btn-link" style="color: white; font-size: 25px"></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+                <td width="40%"></td>
+                <td style="font-size: 30px; font-family:Times New Roman; text-align: right; vertical-align: top;" width="60%">
+                    {{ nome }} <br>
+                    {{ sala }}{{ turma }}<br><br>
+                    <a href="/senha"><button type="button" class="btn btn-outline-dark">Change your password</button></a>
+                </td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}

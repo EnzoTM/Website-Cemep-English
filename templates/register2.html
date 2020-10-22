@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <table width="400x" height="600px" align="center">
+        <tr>
+            <td>
+                <form action="/register2" method="post">
+                   <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email"  class="form-control" id="email" aria-describedby="emailHelp" name="email">
+                   </div>
+                   <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                   </div>
+                   <div class="form-group">
+                        <label for="exampleInputPassword1">Name</label>
+                        <input type="text" class="form-control" id="nome" name="nome">
+                   </div>
+                   <div class="form-group">
+                        <label for="exampleInputPassword1">Birthday</label>
+                        <input type="text" class="form-control" id="idade" name="idade" placeholder="YYYY/MM/DD">
+                   </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Subject</label>
+                        <input type="text" class="form-control" id="materia" name="materia">
+                   </div>
+                   <br>
+                   <input type="radio" name="primeiro"> Sophomore year</input>
+                   <br><br>
+                   <input type="radio" name="segundo"> Junior year</input>
+                   <br><br>
+                   <input type="radio" name="terceiro"> Senior year</input>
+                   <br>
+                   <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

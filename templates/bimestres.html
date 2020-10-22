@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <br><br><br><br><br>    
+        <table align="center">
+            <tr>
+                <form action="/geral" method="post">
+                    <input type="hidden" value="{{ materia }}" name="materia">
+                    <input type="hidden" value="1" name="bimestre">
+                    <input type="hidden" value="{{ ano }}" name="ano">
+                    {% if bimestre1 == True %}
+                        <td><input type="submit" class="btn btn-outline-dark" value="Bimester 1">&nbsp;&nbsp;</td>
+                    {% else %}
+                        <td><input type="submit" class="btn btn-outline-dark" value="Bimester 1" disabled>&nbsp;&nbsp;</td>
+                    {% endif %}
+                </form>
+                <form action="/geral" method="post">
+                    <input type="hidden" value="{{ materia }}" name="materia">
+                    <input type="hidden" value="2" name="bimestre">
+                    <input type="hidden" value="{{ ano }}" name="ano">
+                    {% if bimestre2 == True %}
+                        <td><input type="submit" class="btn btn-outline-dark" value="Bimester 2"></td>
+                    {% else %}
+                        <td><input type="submit" class="btn btn-outline-dark" value="Bimester 2" disabled></td>
+                    {% endif %}
+                </form>
+            </tr>
+            <tr>
+                <td><br></td>
+            </tr>
+            <tr>
+                <form action="/geral" method="post">
+                    <input type="hidden" value="{{ materia }}" name="materia">
+                    <input type="hidden" value="3" name="bimestre">
+                    <input type="hidden" value="{{ ano }}" name="ano">
+                    {% if bimestre3 == True %}
+                        <td><input type="submit" class="btn btn-outline-dark" value="Bimester 3">&nbsp;&nbsp;</td>
+                    {% else %}
+                        <td><input type="submit" class="btn btn-outline-dark" value="Bimester 3" disabled>&nbsp;&nbsp;</td>
+                    {% endif %}
+                </form>
+                <form action="/geral" method="post">
+                    <input type="hidden" value="{{ materia }}" name="materia">
+                    <input type="hidden" value="4" name="bimestre">
+                    <input type="hidden" value="{{ ano }}" name="ano">
+                    {% if bimestre4 == True %}
+                        <td><input type="submit" class="btn btn-outline-dark" value="Bimester 4"></td>
+                    {% else %}
+                        <td><input type="submit" class="btn btn-outline-dark" value="Bimester 4" disabled></td>
+                    {% endif %}
+                </form>
+            </tr>
+        </table>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <table width="400x" height="600px" align="center">
+        <tr>
+            <td>
+                <form action="/login" method="post">
+                   <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email"  class="form-control" id="email" aria-describedby="emailHelp" name="email">
+                   </div>
+                   <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                   </div>
+                   <button type="submit" class="btn btn-primary" id="submit" disabled>Log in</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <script>
+        document.querySelector("#password").onkeyup = function () {
+           if((document.querySelector("#password").value === '') || (document.querySelector("#email").value === '') ){
+               document.querySelector("#submit").disabled = true;
+           } else {
+               document.querySelector("#submit").disabled = false;
+           }
+       }
+
+        document.querySelector("#email").onkeyup = function () {
+           if((document.querySelector("#password").value === '') || (document.querySelector("#email").value === '') ){
+               document.querySelector("#submit").disabled = true;
+           } else {
+               document.querySelector("#submit").disabled = false;
+           }
+       }
+    </script>
+{% endblock %}

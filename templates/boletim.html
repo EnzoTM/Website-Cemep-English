@@ -1,0 +1,68 @@
+{%  extends "layout.html" %}
+
+{% block main %}
+    <br><br><br>
+    <center>{{ nome }} - {{ ano }}° year</center>
+    <br><br><br>
+    <table align="center">
+        <tr>
+            {% if boletim[0] == True %}
+                <td>
+                    <table class="table" align="center">
+                        <thead class="thead-light">
+                            <tr>
+                                <td></td>
+                                <th scope="col" colspan="2"><center>Bimester 1</center></th>
+                                {% for i in range(3) %}
+                                    {% if boletim[i + 1] == True %}
+                                        <th scope="col" colspan="2"><center>Bimester {{ i + 2 }}</center></th>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <th scope="col">Subject</th>
+                                <th scope="col"></th>
+                                <th scope="col">Grade</th>
+                                {% for i in range(3) %}
+                                    {% if boletim[i + 1] == True %}
+                                        <th scope="col"></th>
+                                        <th scope="col">Grade</th>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for j in range(tabela[0]|length) %}
+                                <tr>
+                                    <td>{{ tabela[0][j]["materia"] }}</td>
+                                    <td></td>
+                                    {% if tabela[0][j]["nota"] < 6%}
+                                        <td style="color: red">
+                                    {% else %}
+                                        <td>
+                                    {% endif %}
+
+                                    {{ tabela[0][j]["nota"] }} 
+                                    {% for i in range(3) %}
+                                        {% if boletim[i + 1] %}
+                                            <td></td>
+                                            {% if tabela[i + 1][j]["nota"] < 6 %}
+                                                <td style="color: red">
+                                            {% else %}
+                                                <td>
+                                            {% endif %}
+                                                {{ tabela[i + 1][j]["nota"] }} 
+                                            </td>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            {% endif %}
+        </tr>
+    </table>
+    
+{% endblock %}

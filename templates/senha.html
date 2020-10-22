@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    {% if troca == True %}
+        <div class="alert alert-success position-fixed" role="alert" style="width:100%">
+        Your password was changed successfully
+        </div>
+    {% elif troca == False %}
+        <div class="alert alert-danger position-fixed" role="alert" style="width:100%">
+        Your password wasn't changed
+        </div>
+    {% endif %}
+    <table width="400x" height="600px" align="center">
+        <tr>
+            <td>
+                <form action="/senha" method="post">
+                   <div class="form-group">
+                        <label for="exampleInputEmail1">New password</label>
+                        <input type="password"  class="form-control" id="new_password" aria-describedby="emailHelp" name="new_password">
+                   </div>
+                   <div class="form-group">
+                        <label for="exampleInputPassword1">Current password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                   </div>
+                   <button type="submit" class="btn btn-primary" id="submit" disabled>Change</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <script>
+        document.querySelector("#password").onkeyup = function () {
+           if((document.querySelector("#password").value === '') || (document.querySelector("#new_password").value === '') ){
+               document.querySelector("#submit").disabled = true;
+           } else {
+               document.querySelector("#submit").disabled = false;
+           }
+       }
+
+        document.querySelector("#new_password").onkeyup = function () {
+           if((document.querySelector("#password").value === '') || (document.querySelector("#new_password").value === '') ){
+               document.querySelector("#submit").disabled = true;
+           } else {
+               document.querySelector("#submit").disabled = false;
+           }
+       }
+    </script>
+{% endblock %}

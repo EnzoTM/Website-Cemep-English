@@ -1,0 +1,35 @@
+p_m = db.execute("SELECT * FROM terceiro_medio")
+
+    for i in p_m[0]:
+        for j in range(4):
+            tabela = materia(3, j + 1, p_m[0][i], "terceiro")
+            tabela_t = tabela + "_" + "t"
+            tabela_rec = materia_rec(3, j + 1, p_m[0][i], "terceiro")
+            maximo = "integrativa" + "_" + "maximo"
+
+            db.execute("DROP TABLE :tabela ", tabela=tabela)
+            db.execute("DROP TABLE :tabela_t ", tabela_t=tabela_t)
+            #db.execute("ALTER TABLE :tabela ADD :maximo FLOAT DEFAULT 0.0", tabela=tabela, maximo=maximo)
+            #db.execute("ALTER TABLE :tabela ADD :maximo FLOAT DEFAULT 0.0", tabela=tabela_t, maximo=maximo)
+            #db.execute("INSERT INTO :tabela (integrativa) VALUES (0.0)", tabela=tabela)
+            #db.execute("INSERT INTO :tabela_t (integrativa) VALUES (:integrativa)", integrativa="Integrativa", tabela_t=tabela_t)
+            db.execute("DROP TABLE :tabela_rec ", tabela_rec=tabela_rec)
+
+    p_m = db.execute("SELECT * FROM terceiro_tecnico")
+
+    for i in p_m[0]:
+        for j in range(4):
+            tabela = materia(3, j + 1, p_m[0][i], "terceiro")
+            tabela_t = tabela + "_" + "t"
+            tabela_rec = materia_rec(3, j + 1, p_m[0][i], "terceiro")
+            maximo = "integrativa" + "_" + "maximo"
+
+            db.execute("DROP TABLE :tabela ", tabela=tabela)
+            db.execute("DROP TABLE :tabela_t ", tabela_t=tabela_t)
+            #db.execute("ALTER TABLE :tabela ADD :maximo FLOAT DEFAULT 0.0", tabela=tabela, maximo=maximo)
+            #db.execute("ALTER TABLE :tabela ADD :maximo FLOAT DEFAULT 0.0", tabela=tabela_t, maximo=maximo)
+            #db.execute("INSERT INTO :tabela (integrativa) VALUES (0.0)", tabela=tabela)
+            #db.execute("INSERT INTO :tabela_t (integrativa) VALUES (:integrativa)", integrativa="Integrativa", tabela_t=tabela_t)
+            db.execute("DROP TABLE :tabela_rec", tabela_rec=tabela_rec)
+
+    return render_template("criacao.html")

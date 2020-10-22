@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <form action="/novo" method="post">
+        <input type="hidden" name="tabela" value="{{ tabela }}">
+    <br><br><br><br><br><br>
+    <table width="400px" align="center">
+        <tr>
+            <td>   
+                Add new method
+                <input type="text" class="form-control" id="avaliacao" name="novo" placeholder="Name">
+            </td>
+            <td><br><input type="text" id="valor" name="maximo" size="4" class="form-control" placeholder="0.0"></td>
+        </tr>
+        <tr height="80px"></tr>
+        <tr>
+            <td align="center" colspan="3"><button type="submit" class="btn btn-primary" id="submit" style="float-align: center;" disabled>Add</button></td>
+        </tr>
+    </table>
+    </form>
+
+    <script>
+    document.querySelector("#avaliacao").onkeyup = function () {
+           if ((document.querySelector("#avaliacao").value === '' ) || (document.querySelector("#valor").value === '' )){
+               document.querySelector("#submit").disabled = true;
+           } else {
+               document.querySelector("#submit").disabled = false;
+           }
+       }
+    
+       document.querySelector("#valor").onkeyup = function () {
+           if ((document.querySelector("#avaliacao").value === '' ) || (document.querySelector("#valor").value === '' )){
+               document.querySelector("#submit").disabled = true;
+           } else {
+               document.querySelector("#submit").disabled = false;
+           }
+       }
+    </script>
+{% endblock %}

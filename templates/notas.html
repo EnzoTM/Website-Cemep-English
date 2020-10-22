@@ -1,0 +1,134 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    {% if aviso == True %}
+        <div class="alert alert-warning" role="alert">
+            Some grade exceeded the limit
+        </div>
+    {% endif %}
+    {% if session["user_cargo"] != 'Estudante' %}
+        <table width="100%">
+            <tr>
+                {% if tudo[0]["closed"] == False %}
+                    <td>
+                        <form action="/closed" method="post">
+                            <input type="hidden" name="tabela" value="{{ tabela }}"> 
+                            <input type="hidden" name="materia" value="{{ materia }}"> 
+                            <input type="hidden" name="bimestre" value="{{ bimestre }}">
+                            <input type="submit" class="btn btn-outline-dark" value="Close" name="fechar">
+                        </form>
+                    </td>
+                    <form action="/edicao" method="post" align="right">
+                        <input type="hidden" name="tabela" value="{{ tabela }}">
+                        <td align="right"><input type="submit" class="btn btn-outline-dark" value="Edit"></td>
+                    </form>
+                {% else %}
+                <td>
+                    <form action="/recuperacao" method="post">
+                        <input type="hidden" name="tabela" value="{{ tabela }}"> 
+                        <input type="hidden" name="bimestre" value="{{ bimestre }}">
+                        <input type="hidden" name="tabela_rec" value="{{ tabela_rec }}">
+                        <input type="hidden" name="materia" value="{{ materia }}"> 
+                        <input type="submit" class="btn btn-outline-dark" value="Recovery" name="recuperacao">
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+        </table>
+    {% elif tudo[0]["closed"] == True and tudo[0]["total"] < 6 %}
+        <form action="/recuperacao" method="post">
+            <table>
+                <tr>
+                    <input type="hidden" name="tabela" value="{{ tabela }}">
+                    <input type="hidden" name="bimestre" value="{{ bimestre }}"> 
+                    <input type="hidden" name="tabela_rec" value="{{ tabela_rec }}">
+                    <td><input type="submit" class="btn btn-outline-dark" value="Recovery" name="recuperacao"></td>
+                </tr>
+            </table>
+        </form>
+    {% endif %}
+    <br><br><br><br><br>
+
+    {% if tudo[0]["closed"] == True and session["user_cargo"] != "Estudante" %}
+        <table>
+        <tr><td width="5%"></td>
+    {% else %}
+        <table align="center">
+        <tr>
+    {% endif %}
+            <td align="center">
+                <form action="/atualizar" method="post" align="center">
+                    <input type="hidden" name="bimestre" value="{{ bimestre }}">
+                    <table class="table" align="center">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Bimester {{ bimestre }}</th>
+                                {% for i in title[0] %}
+                                    {% if not "maximo" in i %}
+                                        <th scope="col">{{ title[0][i] }} ({{ title[0][i + "_" + "maximo"] }})</th>
+                                    {% endif %}
+                                {% endfor %}
+                                <th scope="col"></th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if session["user_cargo"] != "Estudante" %}
+                                {% for i in range(t) %}
+                                    <tr>
+                                        {% for j in tudo[i] %}
+                                            {% if j == 'aluno_nome' %}
+                                                <th scope="row">{{ tudo[i][j] }}</th>
+                                            {% elif j != "total" and j != "closed" and not "maximo" in j %}
+                                                {% if tudo[0]["closed"] == False %}
+                                                    <td><input type="text" value='{{ tudo[i][j] }}' name="{{ tudo[i]['aluno_nome'] }}_{{ j }}"></td>
+                                                {% else %}
+                                                    <td><input type="text" value="{{ tudo[i][j] }}" disabled></td>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        <td></td>  
+                                        {% if tudo[0]["closed"] == True and tudo[i]["total"] < 6 %}
+                                            <td style="color: red">{{ tudo[i]["total"] }}</td>
+                                        {% else %}
+                                            <td>{{ tudo[i]["total"] }}</td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                    <tr>
+                                        {% for j in tudo[0] %}
+                                            {% if j == 'aluno_nome' %}
+                                                <th scope="row">{{ tudo[0][j] }}</th>
+                                            {% elif j != "total" and j != "closed" and not "maximo" in j %}
+                                                <td><input type="number" value="{{ tudo[0][j] }}" disabled></td>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <td></td>
+                                        <td>{{ tudo[0]["total"] }}</td>
+                                    </tr>
+                            {% endif %}
+                        </tbody>
+                
+                    {% if session["user_cargo"] != 'Estudante' and tudo[0]["closed"] == False %}
+                        <tr>
+                            <td>
+                                <input type="hidden" name="tabela" value="{{ tabela }}"> 
+                                <input type="submit" value="Save" name="atualizar">
+                            </form>
+                            </td>
+                        </tr>
+                    {% endif %}
+                </table>
+            </td>
+        {% if tudo[0]["closed"] == True and session["user_cargo"] != "Estudante" %}
+            <td width="100%" style="text-align: center; font-size: x-large;">
+                Percentage of people recovering: {{ porcentagem }}%<br><br><br>
+                Average of the class (grade > 6): {{ media_sem }}<br><br><br>
+                Average of the class: {{ media_com }}
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            </td>
+        {% endif %}
+        </tr>
+    </table>
+{% endblock %}

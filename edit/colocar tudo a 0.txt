@@ -1,0 +1,18 @@
+m = db.execute("SELECT * FROM primeiro_medio")
+    t = db.execute("SELECT * FROM primeiro_tecnico")
+
+    for i in m[0]:
+        mat = m[0][i]
+
+        tabela = materia(1, 1, mat, "primeiro")
+
+        db.execute("UPDATE :tabela SET closed = 0", tabela=tabela)
+    
+    for i in t[0]:
+        mat = t[0][i]
+
+        tabela = materia(1, 1, mat, "primeiro")
+
+        db.execute("UPDATE :tabela SET closed = 0", tabela=tabela)
+    
+    return render_template("criacao.html")

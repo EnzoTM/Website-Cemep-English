@@ -1,0 +1,21 @@
+m = db.execute("SELECT * FROM primeiro_medio")
+    t = db.execute("SELECT * FROM primeiro_tecnico")
+
+    sla = []
+
+    for i in m[0]:
+        mat = m[0][i]
+
+        tabela = materia(1, 2, mat, "primeiro")
+
+        tudo = db.execute("DELETE FROM :tabela", tabela=tabela)
+    
+    for i in t[0]:
+        mat = t[0][i]
+
+        tabela = materia(1, 2, mat, "primeiro")
+
+        tudo = db.execute("DELETE FROM :tabela", tabela=tabela)
+
+    
+    return render_template("teste.html", teste=sla)

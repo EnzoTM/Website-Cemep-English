@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <table>
+        <tr>
+            <td>
+                Sim {% if um == True %} 
+                        Um 
+                        {% if dois == True %} 
+                            Dois 
+                        {%endif %}
+                    {% endif %}
+            </td>
+        </tr>
+    </table>
+{% endblock %}

@@ -1,0 +1,32 @@
+p_m = db.execute("SELECT * FROM terceiro_medio")
+maximo = "integrativa" + "_" + "maximo"
+
+    for i in p_m[0]:
+        for j in range(4):
+            tabela = materia(3, j + 1, p_m[0][i], "terceiro")
+            tabela_t = tabela + "_" + "t"
+            tabela_rec = materia_rec(3, j + 1, p_m[0][i], "terceiro")
+
+            db.execute("CREATE TABLE :tabela ('aluno_nome' TEXT, 'integrativa' FLOAT DEFAULT 0.0, 'closed' BIT DEFAULT 0, 'total' FLOAT DEFAULT 0.0)", tabela=tabela)
+            db.execute("CREATE TABLE :tabela_t ('integrativa' TEXT DEFAULT Integrativa)", tabela_t=tabela_t)
+            db.execute("ALTER TABLE :tabela ADD :maximo FLOAT DEFAULT 4.0", tabela=tabela, maximo=maximo)
+            db.execute("ALTER TABLE :tabela ADD :maximo FLOAT DEFAULT 4.0", tabela=tabela_t, maximo=maximo)
+            db.execute("INSERT INTO :tabela_t (integrativa) VALUES (:integrativa)", integrativa="Integrativa", tabela_t=tabela_t)
+            db.execute("CREATE TABLE :tabela_rec ('aluno_nome' TEXT, 'closed' BIT DEFAULT 0, 'prova' FLOAT DEFAULT 0.0)", tabela_rec=tabela_rec)
+
+    p_m = db.execute("SELECT * FROM terceiro_tecnico")
+
+    for i in p_m[0]:
+        for j in range(4):
+            tabela = materia(3, j + 1, p_m[0][i], "terceiro")
+            tabela_t = tabela + "_" + "t"
+            tabela_rec = materia_rec(3, j + 1, p_m[0][i], "terceiro")
+
+            db.execute("CREATE TABLE :tabela ('aluno_nome' TEXT, 'integrativa' FLOAT DEFAULT 0.0, 'closed' BIT DEFAULT 0, 'total' FLOAT DEFAULT 0.0)", tabela=tabela)
+            db.execute("CREATE TABLE :tabela_t ('integrativa' TEXT DEFAULT Integrativa)", tabela_t=tabela_t)
+            db.execute("ALTER TABLE :tabela ADD :maximo FLOAT DEFAULT 4.0", tabela=tabela, maximo=maximo)
+            db.execute("ALTER TABLE :tabela ADD :maximo FLOAT DEFAULT 4.0", tabela=tabela_t, maximo=maximo)
+            db.execute("INSERT INTO :tabela_t (integrativa) VALUES (:integrativa)", integrativa="Integrativa", tabela_t=tabela_t)
+            db.execute("CREATE TABLE :tabela_rec ('aluno_nome' TEXT, 'closed' BIT DEFAULT 0, 'prova' FLOAT DEFAULT 0.0)", tabela_rec=tabela_rec)
+
+    return render_template("criacao.html")
